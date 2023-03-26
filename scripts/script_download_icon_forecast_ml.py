@@ -13,7 +13,7 @@ def main():
 
     # settings #
 
-    fcst_hours_list = list(range(0, 72+1, 3))
+    fcst_hours_list = list(range(0, 24+1, 3))
     #fcst_hours_list = [12]
 
     mlevels = list(range(58, 120+1, 1))
@@ -39,8 +39,10 @@ def main():
 
     path = dict(base = os.getcwd()[:-8] + '/',
                 grid = 'data/grid/',
-                data = 'data/forecasts/run_{}{:02}{:02}{:02}'.format(
-                        run['year'], run['month'], run['day'], run['hour']))
+                data = 'data/forecasts')
+    if not os.path.isdir(path['base'] + path['data']):
+        os.mkdir(path['base'] + path['data'])
+    path['data'] += '/run_{}{:02}{:02}{:02}'.format(run['year'], run['month'], run['day'], run['hour'])
     if not os.path.isdir(path['base'] + path['data']):
         os.mkdir(path['base'] + path['data'])
     path['data'] = path['data'] + '/'
