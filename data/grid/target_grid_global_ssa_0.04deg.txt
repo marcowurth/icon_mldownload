@@ -1,0 +1,14 @@
+# CDO grid description file for regional regular grid
+gridtype = lonlat
+xname     = lon
+xlongname = "longitude"
+xunits    = "degrees_east"
+yname     = lat
+ylongname = "latitude"
+yunits    = "degrees_north"
+xsize    =  751
+ysize    =  501
+xfirst   = -75.0
+xinc     =   0.04
+yfirst   = -40.0
+yinc     =   0.04

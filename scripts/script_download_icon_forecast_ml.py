@@ -6,8 +6,7 @@ import datetime
 
 import distributed
 
-from download_forecast import calc_latest_run_time
-from download_global_ml_vars import download_global_ml_vars
+from download_functions import calc_latest_run_time, download_global_ml_vars
 
 
 def main():
@@ -15,13 +14,14 @@ def main():
     # settings #
 
     fcst_hours_list = list(range(0, 72+1, 3))
-    fcst_hours_list = [12]
+    #fcst_hours_list = [12]
 
     mlevels = list(range(58, 120+1, 1))
+    #mlevels = [120]
 
-    latlon_resolution = 0.25    # only relevant when interpolation weights available
+    targetgrid_name = 'ssa_0.04deg'
 
-    #parallel = True     # parallisation works over fcst_hours, not vars
+    #parallel = True     # parallization works over fcst_hours, not vars
     parallel = False
 
 
@@ -37,8 +37,8 @@ def main():
 
     # create paths #
 
-    path = dict(base = 'here/goes/the/absolute/path/to/folder/containing/scripts/',
-                grid = 'grid/',
+    path = dict(base = os.getcwd()[:-8] + '/',
+                grid = 'data/grid/',
                 data = 'data/forecasts/run_{}{:02}{:02}{:02}'.format(
                         run['year'], run['month'], run['day'], run['hour']))
     if not os.path.isdir(path['base'] + path['data']):
@@ -56,7 +56,7 @@ def main():
     tasks = []
     task_idx = 0
     for fcst_hour in fcst_hours_list:
-        tasks.append([parallel, task_idx, path, run, fcst_hour, mlevels, latlon_resolution])
+        tasks.append([parallel, task_idx, path, run, fcst_hour, mlevels, targetgrid_name])
         task_idx += 1
 
 
